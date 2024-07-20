@@ -34,7 +34,7 @@ int main(){
     int max= Max(n1,n2,n3); 
     int min= Min(n1,n2,n3);
 
-    cout<<"MAXIMUM = "<< max << "and MINIMUM = "<< min;
+    cout<<"MAXIMUM = "<< max << endl << "and MINIMUM = "<< min;
     return 0;
 }
 

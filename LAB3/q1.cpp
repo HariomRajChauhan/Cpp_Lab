@@ -1,73 +1,64 @@
 // 1. Program to convert Nepalese Currency (Rupees and Paisa) to US Currency (Dollar and Cents). (Rs. 98.51=1$)
 
+
+// class to class data type conversion
+// source class = NeplaseCurrency
+// destination class = UsCurrency
+// source class --> destination class
+
+
 #include <iostream>
 using namespace std;
 
-class CurrencyConverter {
+
+class NeplaseCurrency
+{
+private:
+    int rupess;
+    int paisa;
+
 public:
-    static const double conversionRate;
+    NeplaseCurrency() : rupess(0), paisa(0) {}
+    NeplaseCurrency(int r,int p) : rupess(r),paisa(p) {}
 
-    void convertNepaleseToUSD(double rupees, double paisa) {
-        double totalRupees = rupees + (paisa / 100);
-        double usd = totalRupees / conversionRate;
-        int dollars = static_cast<int>(usd);
-        int cents = static_cast<int>((usd - dollars) * 100);
-        cout << rupees << " Rupees and " << paisa << " Paisa = " << dollars << " Dollars and " << cents << " Cents" << endl;
+    int getRupess() const
+    {
+        return rupess;
     }
-
-    void convertUSDToNepalese(double dollars, double cents) {
-        double totalUSD = dollars + (cents / 100);
-        double rupees = totalUSD * conversionRate;
-        int rupeesInt = static_cast<int>(rupees);
-        int paisa = static_cast<int>((rupees - rupeesInt) * 100);
-        cout << dollars << " Dollars and " << cents << " Cents = " << rupeesInt << " Rupees and " << paisa << " Paisa" << endl;
+    int getPaisa() const
+    {
+        return paisa;
     }
 };
 
-const double CurrencyConverter::conversionRate = 98.51;
+class UsCurrency
+{
+private:
+    int dollars;
+    int cents;
 
-int main() {
-    CurrencyConverter converter;
-    double rupees ;
-    double dolors ;
-    double cents ;
-    double paisa ;
-    int num;
+public:
+    UsCurrency() : dollars(0),cents(0) {}
+    UsCurrency(int d,int c) : dollars(d) , cents(c) {}
 
-    cout << "1. Convert Nepalese Currency to USD" << endl;
-    cout << "2. Convert USD to Nepalese Currency" << endl;
-    cout << "Enter your choice: ";
-    cin >> num;
-
-    while(num != 1 && num != 2) {
-        cout << "Invalid Input" << endl;
-        cout << "Enter your choice: ";
-        cin >> num;
+    void Display(){
+        cout << "US Currency: $" << dollars << "." << (cents < 10 ? "0" : "") << cents << endl;
     }
-    switch (num)
-    {
-    case 1:
-        cout << "Enter Rupees: ";   
-        cin >> rupees;
-        cout << "Enter Paisa: ";
-        cin >> paisa;
 
-        converter.convertNepaleseToUSD(rupees, paisa);       
-        break;
-    case 2:
-        cout << "Enter Dollars: ";   
-        cin >> dolors;
-        cout << "Enter Cents: ";
-        cin >> cents;   
+    UsCurrency (const NeplaseCurrency &np ){
+        double totalNpCurr = np.getRupess() + (np.getPaisa()/100.0);
+        double totalUsCurr = totalNpCurr / 98.51;
 
-        converter.convertUSDToNepalese(dolors, cents);     
-        break;
-
-    default:
-        cout << "Invalid Input" << endl;
-
-        break;
+        dollars = static_cast<int>(totalUsCurr);
+        cents = static_cast<int>((totalUsCurr - dollars)*100);
     }
+};
+
+int main()
+{
+    NeplaseCurrency np(98,51);
+    UsCurrency us = np;
+    us.Display();
 
     return 0;
 }

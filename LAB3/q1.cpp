@@ -22,8 +22,6 @@ public:
         int paisa = static_cast<int>((rupees - rupeesInt) * 100);
         cout << dollars << " Dollars and " << cents << " Cents = " << rupeesInt << " Rupees and " << paisa << " Paisa" << endl;
     }
-
-
 };
 
 const double CurrencyConverter::conversionRate = 98.51;

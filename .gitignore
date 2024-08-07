@@ -1,4 +1,2 @@
-/lab1/*.exe,
-/LAb2/*.exe,
-
-/.vscode
+**/*.exe
+test/

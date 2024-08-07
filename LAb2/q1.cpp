@@ -10,9 +10,6 @@ class SWAPDATA{
         int FirstData;
         int SecondData;
 
-        string Name1;
-        string Name2;
-
     public:
         void GetData(){
             cout << "Enter the first data: ";

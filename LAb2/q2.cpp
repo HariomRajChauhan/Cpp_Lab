@@ -13,24 +13,24 @@ private:
 public:
     USCurrency(float d) : dollars(d) {}
 
-    float getDollars() const
+    float getDollars()
     {
         return dollars;
     }
 
-    friend bool operator==(NepaliCurrency, USCurrency);
-    friend bool operator!=(NepaliCurrency, USCurrency);
-    friend bool operator<(NepaliCurrency, USCurrency);
-    friend bool operator<=(NepaliCurrency, USCurrency);
-    friend bool operator>(NepaliCurrency, USCurrency);
-    friend bool operator>=(NepaliCurrency, USCurrency);
+    friend bool operator==(NepaliCurrency&, USCurrency&);
+    friend bool operator!=(NepaliCurrency&, USCurrency&);
+    friend bool operator<(NepaliCurrency&, USCurrency&);
+    friend bool operator<=(NepaliCurrency&, USCurrency&);
+    friend bool operator>(NepaliCurrency&, USCurrency&);
+    friend bool operator>=(NepaliCurrency&, USCurrency&);
 
-    friend bool operator==(USCurrency,NepaliCurrency);
-    friend bool operator!=(USCurrency,NepaliCurrency);
-    friend bool operator<(USCurrency,NepaliCurrency);
-    friend bool operator<=(USCurrency,NepaliCurrency);
-    friend bool operator>(USCurrency,NepaliCurrency);
-    friend bool operator>=(USCurrency,NepaliCurrency);
+    friend bool operator==(USCurrency&,NepaliCurrency&);
+    friend bool operator!=(USCurrency&,NepaliCurrency&);
+    friend bool operator<(USCurrency&,NepaliCurrency&);
+    friend bool operator<=(USCurrency&,NepaliCurrency&);
+    friend bool operator>(USCurrency&,NepaliCurrency&);
+    friend bool operator>=(USCurrency&,NepaliCurrency&);
 };
 
 
@@ -42,9 +42,9 @@ private:
 public:
     NepaliCurrency(float n) : nrs(n) {}
 
-    float getNRS() const
+    float getNRSInDollar()
     {
-        return nrs;
+        return nrs/101.36;
     }
 
     friend bool operator==(NepaliCurrency &, USCurrency &);
@@ -64,45 +64,45 @@ public:
 
 
 
-friend bool operator==(USCurrency usd,NepaliCurrency nrs){
-    return (usd.getDollars == nrs.getNRS);
+bool operator==(USCurrency & usd,NepaliCurrency &nrs){
+    return (usd.getDollars() == nrs.getNRSInDollar());
 }
-bool operator!=(USCurrency usd,NepaliCurrency nrs){
-    return (usd.getDollars != nrs.getNRS);
+bool operator!=(USCurrency &usd,NepaliCurrency &nrs){
+    return (usd.getDollars() != nrs.getNRSInDollar());
 }
-bool operator<(USCurrency usd,NepaliCurrency nrs){
-    return (usd.getDollars < nrs.getNRS);
+bool operator<(USCurrency &usd,NepaliCurrency &nrs){
+    return (usd.getDollars() < nrs.getNRSInDollar());
 }
-bool operator<=(USCurrency usd,NepaliCurrency nrs){
-    return (usd.getDollars <= nrs.getNRS);
+bool operator<=(USCurrency &usd,NepaliCurrency &nrs){
+    return (usd.getDollars() <= nrs.getNRSInDollar());
 }
-bool operator>(USCurrency usd,NepaliCurrency nrs){
-    return (usd.getDollars > nrs.getNRS);
+bool operator>(USCurrency &usd,NepaliCurrency &nrs){
+    return (usd.getDollars() > nrs.getNRSInDollar());
 }
-bool operator>=(USCurrency usd,NepaliCurrency nrs){
-    return (usd.getDollars >= nrs.getNRS);
+bool operator>=(USCurrency &usd,NepaliCurrency &nrs){
+    return (usd.getDollars() >= nrs.getNRSInDollar());
 }
 
 
 
 
-bool operator==(NepaliCurrency nrs,USCurrency usd){
-    return (nrs.getNRS == usd.getDollars);
+bool operator==(NepaliCurrency &nrs,USCurrency &usd){
+    return (nrs.getNRSInDollar() == usd.getDollars());
 }
-bool operator!=(NepaliCurrency nrs,USCurrency usd){
-    return (nrs.getNRS != usd.getDollars);
+bool operator!=(NepaliCurrency &nrs,USCurrency &usd){
+    return (nrs.getNRSInDollar() != usd.getDollars());
 }
-bool operator<(NepaliCurrency nrs,USCurrency usd){
-    return (nrs.getNRS < usd.getDollars);
+bool operator<(NepaliCurrency &nrs,USCurrency &usd){
+    return (nrs.getNRSInDollar() < usd.getDollars());
 }
-bool operator<=(NepaliCurrency nrs,USCurrency usd){
-    return (nrs.getNRS <= usd.getDollars);
+bool operator<=(NepaliCurrency &nrs,USCurrency &usd){
+    return (nrs.getNRSInDollar() <= usd.getDollars());
 }
-bool operator>(NepaliCurrency nrs,USCurrency usd){
-    return (nrs.getNRS > usd.getDollars);
+bool operator>(NepaliCurrency &nrs,USCurrency &usd){
+    return (nrs.getNRSInDollar() > usd.getDollars());
 }
-bool operator>=(NepaliCurrency nrs,USCurrency usd){
-    return (nrs.getNRS >= usd.getDollars);
+bool operator>=(NepaliCurrency &nrs,USCurrency &usd){
+    return (nrs.getNRSInDollar() >= usd.getDollars());
 }
 
 
@@ -110,7 +110,35 @@ bool operator>=(NepaliCurrency nrs,USCurrency usd){
 int main()
 {
     USCurrency usd(5);         // 5 USD
-    NepaliCurrency nrs(506.8); // 506.8 NRS
+    NepaliCurrency nrs(56.8); // 506.8 NRS
+
+    if(usd > nrs){
+        cout << "USD is greater than NRS" << endl;
+    }
+
+    else if(usd < nrs){
+        cout << "USD is less than NRS" << endl;
+    }
+
+    else if (usd == nrs){
+        cout << "USD is equal to NRS" << endl;
+    }
+
+    if (usd >= nrs){
+        cout << "USD is greater than or equal to NRS" << endl;
+    }
+
+    if (usd <= nrs){
+        cout << "USD is less than or equal to NRS" << endl;
+    }
+
+    if (usd != nrs){
+        cout << "USD is not equal to NRS" << endl;
+    }
+
+    else {
+        cout << "BANG BANG";
+    }
 
     
 

@@ -18,14 +18,14 @@ class Publication{
     public:
         Publication(string title, double price) : title(title), price(price) {}
 
-        void getdata(){
+        virtual void getdata(){
             cout << "Enter title: ";
             cin >> title;
             cout << "Enter price: ";
             cin >> price;
         }
 
-        void putdata(){
+        virtual void putdata(){
             cout << "Title: " << title << endl;
             cout << "Price: " << price << endl;
         }
@@ -36,7 +36,9 @@ class Book : public Publication{
         int page_count;
 
     public:
-        Book(string title, double price, int page_count) : Publication(title, price), page_count(page_count) {}
+        Book(string title = "", double price = 0, int page_count = 0) : Publication(title, price) {
+            this->page_count = page_count;
+        }
 
         void getdata(){
             Publication::getdata();
@@ -55,7 +57,9 @@ class Tape : public Publication{
         int playing_time;
 
     public:
-        Tape(string title, double price, int playing_time) : Publication(title, price), playing_time(playing_time) {}
+        Tape(string title = "", double price = 0, int playing_time =0) : Publication(title, price){
+            this->playing_time = playing_time;
+        }
 
         void getdata(){
             Publication::getdata();
@@ -70,13 +74,16 @@ class Tape : public Publication{
 };
 
 int main(){
-    Book b("Book", 100, 100);
+    Book b;
+    cout << "Enter Book details :" << endl;
     b.getdata();
-    b.putdata();
     cout << endl;
+    b.putdata();
 
-    Tape t("Tape", 200, 200);
+    Tape t;
+    cout << endl << "Enter Tape details :" << endl;
     t.getdata();
+    cout << endl;
     t.putdata();
 
     return 0;

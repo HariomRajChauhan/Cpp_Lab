@@ -50,8 +50,8 @@ int main() {
     STRING s3 = s1 + s2;
     s3.display();
 
-    STRING s4;
-    s4 = s1;
+    STRING s4("Hello, World!");
+    
     s4.display();
 
     if (s1 == s4)

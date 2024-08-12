@@ -1,37 +1,32 @@
-/*
-
-3. Modify Q.2 to add base class sales that holds an array of three floats so that it can record the dollar sales of a particular publication for the last three months. Include getdata() function to get three Sales amount from the user and a putdata() function to display sales figures. Alter the book and tape classes so they are derived from both publication and sales. An object of class book or tape should input and output sales data along with its other data.   
-
-*/
-
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-class Sales{
-    protected:
-        float sales[3];
+class Sales
+{
+protected:
+    float sales[3] = {0, 0, 0};
 
-    public:
-        Sales(float sales[3]) {
-            for (int i = 0; i < 3; i++) {
-                this->sales[i] = sales[i];
-            }
-        }
+public:
+    Sales() {}
 
-        void getdata(){
-            for (int i = 0; i < 3; i++) {
-                cout << "Enter sales for month " << i + 1 << ": ";
-                cin >> sales[i];
-            }
+    void getdata()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            cout << "Enter sales for month " << i + 1 << ": ";
+            cin >> sales[i];
         }
+    }
 
-        void putdata(){
-            for (int i = 0; i < 3; i++) {
-                cout << "Sales for month " << i + 1 << ": " << sales[i] << endl;
-            }
+    void putdata() const
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            cout << "Sales for month " << i + 1 << ": " << sales[i] << endl;
         }
+    }
 };
 
 class Publication
@@ -41,17 +36,18 @@ protected:
     double price;
 
 public:
-    Publication(string title, double price) : title(title), price(price) {}
+    Publication(string title = "", double price = 0.0) : title(title), price(price) {}
 
     void getdata()
     {
         cout << "Enter title: ";
-        cin >> title;
+        cin.ignore();        // Ignore newline character from previous input
+        getline(cin, title); // Use getline to read the entire line
         cout << "Enter price: ";
         cin >> price;
     }
 
-    void putdata()
+    void putdata() const
     {
         cout << "Title: " << title << endl;
         cout << "Price: " << price << endl;
@@ -64,7 +60,8 @@ protected:
     int page_count;
 
 public:
-    Book(string title, double price, int page_count, float sales[3]) : Publication(title, price), Sales(sales), page_count(page_count) {}
+    Book(string title = "", double price = 0.0, int page_count = 0)
+        : Publication(title, price), page_count(page_count) {}
 
     void getdata()
     {
@@ -74,7 +71,7 @@ public:
         cin >> page_count;
     }
 
-    void putdata()
+    void putdata() const
     {
         Publication::putdata();
         Sales::putdata();
@@ -88,7 +85,8 @@ protected:
     int playing_time;
 
 public:
-    Tape(string title, double price, int playing_time, float sales[3]) : Publication(title, price), Sales(sales), playing_time(playing_time) {}
+    Tape(string title = "", double price = 0.0, int playing_time = 0)
+        : Publication(title, price), playing_time(playing_time) {}
 
     void getdata()
     {
@@ -98,7 +96,7 @@ public:
         cin >> playing_time;
     }
 
-    void putdata()
+    void putdata() const
     {
         Publication::putdata();
         Sales::putdata();
@@ -108,9 +106,8 @@ public:
 
 int main()
 {
-    float sales[3] = {0, 0, 0};
-    Book b("Book", 100, 100, sales);
-    Tape t("Tape", 50, 50, sales);
+    Book b;
+    Tape t;
 
     cout << "Book details: " << endl;
     b.getdata();
@@ -126,4 +123,3 @@ int main()
 
     return 0;
 }
-

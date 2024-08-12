@@ -62,8 +62,19 @@ public:
         hours = t12.getHours();
         minutes = t12.getMinutes();
         seconds = t12.getSeconds();
-        if (t12.getMeridiem() == "PM")
+        if(t12.getHours() == 12 && t12.getMeridiem() == "AM")
         {
+            // yo bhaneko midnight ko samay bhayo
+            hours = 0;
+        }
+        else if (t12.getHours() == 12 && t12.getMeridiem() == "PM")
+        {
+            // yo bhaneko afternoon ko samay bhayo
+            hours = 12;
+        }
+
+        else if(t12.getMeridiem() == "PM"){
+            // yo bhaneko normal time ko lagi
             hours += 12;
         }
     }
@@ -78,7 +89,7 @@ public:
 
 int main()
 {
-    Time12 t12(5, 30, 45, "PM");
+    Time12 t12(12, 30, 45, "PM");
     t12.Display();
 
     Time24 t24 = t12;

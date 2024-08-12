@@ -3,9 +3,6 @@
 
 */
 
-
-
-
 #include <iostream>
 #include <string>
 
@@ -19,7 +16,9 @@ protected:
 
 public:
     Person(string name, int age, string id) : name(name), age(age), id(id) {}
+    
 
+    
 
     void display() {
         cout << "Name: " << name << endl;
@@ -36,8 +35,8 @@ protected:
     double hourly_rate;
 
 public:
-    Employee(string name, int age, string id, string designation, double basic_salary, int total_overtime, double hourly_rate)
-        : Person(name, age, id), designation(designation), basic_salary(basic_salary), total_overtime(total_overtime), hourly_rate(hourly_rate) {}
+    Employee(string name,int age,string id,string designation,double basic_salary,int total_overtime,double hourly_rate)
+    : Person(name,age,id) , designation(designation), basic_salary(basic_salary), total_overtime(total_overtime), hourly_rate(hourly_rate) {}
 
         void display() {
             Person::display();
@@ -68,6 +67,11 @@ public:
 int main() {
 
     ComputedSalary cs("Rajesh", 25, "1", "Manager", 50000, 10, 1000);
+    cs.Person::display();
+    cout << endl;
+    
+    cs.Employee::display();
+    cout << endl;
 
     cs.display();
 

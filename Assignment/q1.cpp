@@ -1,51 +1,83 @@
-#include<iostream>
-#include<string>
+/* 1. Create a class person with name and date of birth as data members. Ask the user to enter a date of birth and print all persons name with matched date of birth.
+
+*/
+#include <iostream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-class Person {
-    private:
-        string name;
-        string dob;
-        
-    public:
-        void getdata() {
-            cout << "Enter the name of the person: ";
-            cin >> name;
-            cout << "Enter the date of birth of the person (DD-MM-YYYY): ";
-            cin >> dob;
-        }
+class Person
+{
+private:
+    string name;
+    string dob;
 
-        void display() {
-            cout << "Name: " << name << endl;
-            cout << "Date of Birth: " << dob << endl;
-        }
+public:
+    Person() {}
+    Person(const string &name, const string &dob)
+    {
+        this->name = name;
+        this->dob = dob;
+    }
 
-        friend void search(Person p[], int n);
+    void getData()
+    {
+        cin.ignore(); // Ignore the newline character left in the input buffer
+        cout << "Enter name: ";
+        getline(cin, name);
+        cout << "Enter date of birth (dd/mm/yyyy): ";
+        getline(cin, dob);
+    }
+
+    void display() const
+    {
+        cout << "Name: " << name << endl;
+        cout << "Date of birth: " << dob << endl;
+    }
+
+    friend void search(const vector<Person> &persons);
 };
 
-void search(Person p[], int n) {
+void search(const vector<Person> &persons)
+{
     string date;
-    cout << "Enter the date of birth to search: ";
+    cout << "Enter the date of birth to search (dd/mm/yyyy): ";
     cin >> date;
-    for (int i = 0; i < n; i++) {
-        if (p[i].dob == date) {
-            cout << "Name: " << p[i].name << endl;
+
+    bool found = false;
+    for (const auto &person : persons)
+    {
+        if (person.dob == date)
+        {
+            cout << "Name: " << person.name << endl;
+            found = true;
         }
+    }
+
+    if (!found)
+    {
+        cout << "No person found with the date of birth: " << date << endl;
     }
 }
 
-int main() {
+int main()
+{
     int n;
     cout << "Enter the number of persons: ";
     cin >> n;
-    Person* p = new Person[n];
-    for (int i = 0; i < n; i++) {
-        p[i].getdata();
+    vector<Person> persons(n);
+    for (int i = 0; i < n; i++)
+    {
+        persons[i].getData();
     }
 
-    search(p, n);
+    for (int i = 0; i < n; i++)
+    {
+        persons[i].display();
+    }
 
-    delete[] p;
+    search(persons);
+
     return 0;
 }

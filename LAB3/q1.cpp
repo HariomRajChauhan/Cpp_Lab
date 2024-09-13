@@ -56,7 +56,7 @@ public:
 
 int main()
 {
-    NeplaseCurrency np(98,51);
+    NeplaseCurrency np(200,51);
     UsCurrency us = np;
     us.Display();
 

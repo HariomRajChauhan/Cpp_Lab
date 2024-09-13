@@ -89,7 +89,7 @@ public:
 
 int main()
 {
-    Time12 t12(12, 30, 45, "PM");
+    Time12 t12(1, 30, 45, "PM");
     t12.Display();
 
     Time24 t24 = t12;
